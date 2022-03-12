@@ -7,7 +7,16 @@
     <title>Practica II</title>
 </head>
 <body>
+    
+    <iframe src="https://giphy.com/embed/kUTME7ABmhYg5J3psM" width="480" height="360" id="imagen" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/loading-load-builtbybritt-kUTME7ABmhYg5J3psM"></a></p>
+
+    <span id="datos" style="color: black; font-size: 20px;"></span>
+    <div id="form"></div>
+    
+    </form>
     <script>
+
+        let myimage = document.getElementById('imagen');
 
         // 1. Crear arreglo 10 productos 
 
@@ -26,28 +35,62 @@
 
         // 2. Generar función buscar producto por referencia y que muestre info. 
 
-    
-       /* let valor = parseFloat(prompt("Ingrese el valor"));
-        const resultado = productos.find(producto => producto.referencia == valor);
-        console.log(resultado);*/
-
         function buscarRef(producto){
             let valor = parseFloat(prompt("Ingrese el número de referencia"));
             setTimeout(function(){
                 let resultado = productos.find(function(producto) { 
-                   return (producto.referencia == valor); 
+                    if(producto.referencia >= 10){
+                        console.log("No es opción válida")
+                        myimage.style.visibility = "hidden";
+                        return 0;
+                    } else {
+                        
+                        return (producto.referencia == valor); 
+                       
+                    }
+                   
                 })
                 
+                if(resultado){
                     console.log(resultado)
+                    myimage.style.visibility = "hidden"; 
+                
+                    let html = "<form>";
+
+                        html += ` Referencia  <input value= ${resultado.referencia}></input> <br>
+                              Descripción  <input value= ${resultado.descripcion}></input> <br>
+                                  Precio unitario  <input value= ${resultado.preciou}></input><br>
+                                    Existencia  <input value= ${resultado.existencia}></input>`
+
+                        html += `</form>`
+                        document.getElementById('datos').innerHTML = html;
+
+                    /*
+                    let html = "<table border = '3'><th>Referencia</th><th>Descripcion</th><th>Precio Unitario</th><th>Existencia</th>";
+
+
+                        
+                    html += `<tr><td>${resultado.referencia}</td>
+                        <td>${resultado.descripcion}</td>
+                           <td>${resultado.preciou}</td>
+                               <td>${resultado.existencia}</td></tr>`
+                            
+                        
+                        html += `</table>` 
+                        document.getElementById('datos').innerHTML = html;*/
+               
+                }
+                  
                 
             },3000)
             
             
         }
 
-        function llamarFuncion(fn){
+        function llamarFuncion(callback){
             console.log("Buscando el producto, espere por favor")
-            fn();     
+            callback();
+            myimage.style.visibility = "visible";     
         }
 
         llamarFuncion(buscarRef);
