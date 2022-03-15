@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Practica II</title>
+</head>
+<body>
+    
+    <iframe src="https://giphy.com/embed/kUTME7ABmhYg5J3psM" width="480" height="360" id="imagen" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/loading-load-builtbybritt-kUTME7ABmhYg5J3psM"></a></p>
+
+    <span id="datos" style="color: black; font-size: 20px;">
+ 
+    </span>
+    
+    <script>
+
+        let myimage = document.getElementById('imagen');
+
+        // 1. Crear arreglo 10 productos 
+
+        let productos = [
+            {referencia:"01",descripcion:"Leche", preciou: "4000",existencia:true},
+            {referencia:"02",descripcion:"Arepas", preciou: "2000",existencia:true},
+            {referencia:"03",descripcion:"Huevos", preciou: "12000",existencia:false},
+            {referencia:"04",descripcion:"Carne", preciou: "8500",existencia:true},
+            {referencia:"05",descripcion:"Cafe", preciou: "6000",existencia:false},
+            {referencia:"06",descripcion:"Queso", preciou: "1500",existencia:true},
+            {referencia:"07",descripcion:"Harina", preciou: "1200",existencia:false},
+            {referencia:"08",descripcion:"Pan", preciou: "3000",existencia:true},
+            {referencia:"09",descripcion:"Mantequilla", preciou: "6500",existencia:false},
+            {referencia:"10",descripcion:"Sal", preciou: "1400",existencia:true},
+        ];
+
+        function principal(){
+            return new Promise(function(resolve,reject){
+                let valor = parseFloat(prompt("Ingrese el número de referencia"));
+                setTimeout(function(){
+                    let resultado= productos.find(function(producto){
+                        if(producto.referencia >= 10){
+
+                        reject("No es opción válida")
+                        myimage.style.visibility = "hidden";
+                        return 0;
+
+                    } else {
+                        
+                        return (producto.referencia == valor); 
+                        resolve (resultado);
+                       
+                    }
+                    })
+
+                    if(resultado){
+                    console.log(resultado)
+                     myimage.style.visibility = "hidden"; 
+
+                     let html = "<form>";
+                    html += `Referencia  <input value= ${resultado.referencia}></input> <br>
+                    Descripción  <input value= ${resultado.descripcion}></input> <br>
+                    Precio unitario  <input value= ${resultado.preciou}></input><br>
+                    Existencia  <input value= ${resultado.existencia}></input>`
+
+                    html += `</form>`
+                    document.getElementById('datos').innerHTML = html;
+                    }
+
+                },5000)
+           
+            })
+
+            
+        }
+
+
+        principal(productos)
+        .then((resultado) => {
+            let html = "<form>";
+            html += `Referencia <input value= ${resultado.referencia}></input> <br>
+            Descripción  <input value= ${resultado.descripcion}></input> <br>
+            Precio unitario  <input value= ${resultado.preciou}></input><br>
+            Existencia  <input value= ${resultado.existencia}></input>`
+
+            html += `</form>`
+            document.getElementById('datos').innerHTML = html;
+        }) 
+        .catch((error) => {
+            document.getElementById('datos').innerHTML = error;
+
+        })
+
+
+
+    </script>
+</body>
+</html>
